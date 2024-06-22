@@ -1,0 +1,234 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int opcao = 0;
+
+        do {
+            int exercicio = 0;
+
+            // Exibindo o menu de exercícios
+            do {
+                try {
+                    System.out.println("Escolha um exercício de 1 a 10:");
+                    System.out.println("1) Escreva um programa que imprima números de 1 a 10 usando um loop.");
+                    System.out.println("2) Crie um programa que imprima todos os números ímpares de 1 a 20.");
+                    System.out.println("3) Faça um programa que realize uma contagem regressiva de 10 até 1 e então imprima 'Lançamento!'.");
+                    System.out.println("4) Desenvolva um programa que peça ao usuário para inserir números repetidamente, somando esses números, até que o usuário digite '0'. Ao final, o programa deve mostrar a soma total.");
+                    System.out.println("5) Escreva um programa que peça ao usuário dois números, a e b, e calcule a multiplicação de a por b sem usar o operador de multiplicação, utilizando um loop. Mostre o resultado.");
+                    System.out.println("6) Escreva um programa que soma números pares de 1 a 100. Se a soma atingir 1000 ou mais, o programa deve parar e imprimir o resultado final.");
+                    System.out.println("7) Crie um programa que imprima números de 1 a 50, mas que pule todos os múltiplos de 5.");
+                    System.out.println("8) Crie um programa que peça ao usuário para inserir uma string e verifique se é um palíndromo (uma palavra ou frase que se lê igualmente de trás para frente, desconsiderando espaços, pontuações e maiúsculas/minúsculas).");
+                    System.out.println("9) Implemente um programa que verifica a força de uma senha baseada em critérios como comprimento, inclusão de números, letras maiúsculas e minúsculas, e caracteres especiais.");
+                    System.out.println("10) Faça um programa que conte o número de vogais em uma frase fornecida pelo usuário.");
+                    System.out.println("Digite o número do exercício que deseja executar:");
+
+                    exercicio = scanner.nextInt();
+                    scanner.nextLine();  // Consumir a quebra de linha
+
+                    if (exercicio < 1 || exercicio > 10) {
+                        System.out.println("Opção inválida. Digite um número entre 1 e 10.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Entrada inválida. Por favor, digite um número entre 1 e 10.");
+                    scanner.nextLine();  // Consumir a entrada inválida
+                }
+            } while (exercicio < 1 || exercicio > 10);
+
+            // Executando o exercício escolhido
+            switch (exercicio) {
+                case 1:
+                    exercicio1();
+                    break;
+                case 2:
+                    exercicio2();
+                    break;
+                case 3:
+                    exercicio3();
+                    break;
+                case 4:
+                    exercicio4(scanner);
+                    break;
+                case 5:
+                    exercicio5(scanner);
+                    break;
+                case 6:
+                    exercicio6();
+                    break;
+                case 7:
+                    exercicio7();
+                    break;
+                case 8:
+                    exercicio8(scanner);
+                    break;
+                case 9:
+                    exercicio9(scanner);
+                    break;
+                case 10:
+                    exercicio10(scanner);
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+                    break;
+            }
+
+            // Perguntando se o usuário deseja continuar
+            do {
+                try {
+                    System.out.println("Deseja continuar? 1-Sim, 2-Não");
+                    opcao = scanner.nextInt();
+                    if (opcao != 1 && opcao != 2) {
+                        System.out.println("Opção inválida. Digite 1 para Sim ou 2 para Não.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Entrada inválida. Por favor, digite 1 para Sim ou 2 para Não.");
+                    scanner.nextLine();  // Consumir a entrada inválida
+                }
+            } while (opcao != 1 && opcao != 2);
+
+        } while (opcao == 1);
+
+        scanner.close();
+    }
+
+    public static void exercicio1() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(i);
+        }
+    }
+
+    public static void exercicio2() {
+        for (int i = 1; i <= 20; i++) {
+            if (i % 2 != 0) {
+                System.out.println(i);
+            }
+        }
+    }
+
+    public static void exercicio3() {
+        for (int i = 10; i > 0; i--) {
+            System.out.println(i);
+            try {
+                Thread.sleep(500); // Sleep for 500 milliseconds (0.5 seconds)
+                java.awt.Toolkit.getDefaultToolkit().beep(); // Play a beep sound
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Lançamento!");
+    }
+
+    public static void exercicio4(Scanner scanner) {
+        int soma = 0;
+        int numero;
+
+        do {
+            System.out.print("Digite um número (0 para sair):");
+            numero = scanner.nextInt();
+            soma += numero;
+        } while (numero != 0);
+
+        System.out.println("Soma total: " + soma);
+    }
+
+    public static void exercicio5(Scanner scanner) {
+        System.out.println("Digite o primeiro número:");
+        int a = scanner.nextInt();
+        System.out.println("Digite o segundo número:");
+        int b = scanner.nextInt();
+
+        int resultado = 0;
+        for (int i = 0; i < b; i++) {
+            resultado += a;
+        }
+
+        System.out.println("Resultado: " + resultado);
+    }
+
+    public static void exercicio6() {
+        int soma = 0;
+        String numerosSomados = ""; // Variável para armazenar os números somados
+
+        for (int i = 2; i <= 100; i += 2) {
+            soma += i;
+            numerosSomados += i + " "; // Adiciona o número somado à variável
+            if (soma >= 1000) {
+                break;
+            }
+        }
+
+        System.out.println("Soma final: " + soma);
+        System.out.println("Números somados: " + numerosSomados); // Imprime os números somados
+    }
+
+    public static void exercicio7() {
+        for (int i = 1; i <= 50; i++) {
+            if (i % 5 == 0) {
+                continue;
+            }
+            System.out.println(i);
+        }
+    }
+
+    public static void exercicio8(Scanner scanner) {
+        System.out.println("Digite uma string:");
+        String input = scanner.nextLine().toLowerCase(); // Convertendo tudo para minúsculas
+        // Remover todos os caracteres que não são letras
+        String normalizedInput = input.replaceAll("[^a-z]", "");
+
+        String reversed = new StringBuilder(normalizedInput).reverse().toString();
+        if (normalizedInput.equals(reversed)) {
+            System.out.println("É um palíndromo.");
+        } else {
+            System.out.println("Não é um palíndromo.");
+            System.out.println("Original: " + input);
+            System.out.println("Reverso: " + new StringBuilder(input).reverse().toString()); // Reverso da entrada original
+
+            // Identificar e mostrar a primeira diferença na string normalizada
+            for (int i = 0; i < normalizedInput.length(); i++) {
+                if (normalizedInput.charAt(i) != reversed.charAt(i)) {
+                    System.out.println("Diferença encontrada na posição " + i + ": '" + normalizedInput.charAt(i) + "' != '" + reversed.charAt(i) + "'");
+                    break;
+                }
+            }
+        }
+    }
+
+    public static void exercicio9(Scanner scanner) {
+        System.out.println("Digite uma senha:");
+        String senha = scanner.nextLine();
+
+        boolean temMaiuscula = false, temMinuscula = false, temDigito = false, temEspecial = false;
+
+        for (int i = 0; i < senha.length(); i++) {
+            char senhaDig = senha.charAt(i);
+            if (Character.isUpperCase(senhaDig)) temMaiuscula = true;
+            else if (Character.isLowerCase(senhaDig)) temMinuscula = true;
+            else if (Character.isDigit(senhaDig)) temDigito = true;
+            else temEspecial = true;
+        }
+
+        if (senha.length() >= 8 && temMaiuscula && temMinuscula && temDigito && temEspecial) {
+            System.out.println("Senha forte.");
+        } else {
+            System.out.println("Senha fraca.");
+        }
+    }
+
+    public static void exercicio10(Scanner scanner) {
+        System.out.println("Digite uma frase:");
+        String frase = scanner.nextLine().toLowerCase();
+
+        int vogais = 0;
+        for (int i = 0; i < frase.length(); i++) {
+            char ch = frase.charAt(i);
+            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+                vogais++;
+            }
+        }
+
+        System.out.println("Número de vogais: " + vogais);
+    }
+}
